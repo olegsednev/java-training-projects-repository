@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <File name="transactions_logs" fileName="logs/transactions.log">
+            <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+        <File name="not_money_enough_warn_logs" fileName="logs/not_money_enough_warn_errors.log">
+            <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+        <File name="blocked_account_activity_logs" fileName="logs/blocked_account_activity.log">
+            <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+        <File name="exceptions_logs" fileName="logs/exceptions.log">
+            <ThresholdFilter level="FATAL" onMatch="DENY" onMismatch="NEUTRAL"/>
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </appenders>
+
+    <loggers>
+        <root level="trace">
+            <appender-ref ref="exceptions_logs" level="error"/>
+            <appender-ref ref="blocked_account_activity_logs" level="warn"/>
+            <appender-ref ref="not_money_enough_warn_logs" level="info"/>
+            <appender-ref ref="transactions_logs" level="debug"/>
+        </root>
+    </loggers>
+</configuration>
